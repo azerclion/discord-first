@@ -38,4 +38,9 @@ client.on("interactionCreate", (interaction) => {
       `${interaction.user.username}<--- you!! 나가 뒈져!! 개나 줘버렷 !!`
     );
   }
+  if (interaction.commandName === "add") {
+    const num1 = interaction.options.get("first-number")?.value;
+    const num2 = interaction.options.get("second-number")?.value;
+    interaction.reply(`the sum is ${Number(num1) + num2}`);
+  }
 });
