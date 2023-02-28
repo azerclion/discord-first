@@ -10,17 +10,32 @@ const client = new Client({
   ],
 });
 
+client.login(process.env.TOKEN);
+
 client.on("ready", (c) => {
-  console.log(`${c.user.tag} is online.`);
+  console.log(`✅ ${c.user.tag} is online.`);
 });
 client.on("messageCreate", (message) => {
-  console.log(message.author.username);
+  // console.log(message.author.username);
   if (message.author.bot) {
     return;
   }
   if (message.content) {
-    return message.reply(`${message.author.username} said ${message.content}`);
+    return message.reply(
+      `${message.author.username}님이 " ${message.content} " 라고 말씀하시네요...😆`
+    );
   }
 });
 
-client.login(process.env.TOKEN);
+client.on("interactionCreate", (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+  console.log(interaction);
+  if (interaction.commandName === "hey") {
+    interaction.reply(`${interaction.user.username} command "/hey"`);
+  }
+  if (interaction.commandName === "love") {
+    interaction.reply(
+      `${interaction.user.username}<--- you!! 나가 뒈져!! 개나 줘버렷 !!`
+    );
+  }
+});
