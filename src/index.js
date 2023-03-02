@@ -1,4 +1,4 @@
-const { Client, IntentsBitField } = require("discord.js");
+const { Client, IntentsBitField, EmbedBuilder } = require("discord.js");
 require("dotenv").config();
 
 const client = new Client({
@@ -26,10 +26,9 @@ client.on("messageCreate", (message) => {
     );
   }
 });
-
 client.on("interactionCreate", (interaction) => {
   if (!interaction.isChatInputCommand()) return;
-  console.log(interaction);
+  // console.log(interaction);
   if (interaction.commandName === "hey") {
     interaction.reply(`${interaction.user.username} command "/hey"`);
   }
@@ -42,5 +41,47 @@ client.on("interactionCreate", (interaction) => {
     const num1 = interaction.options.get("first-number")?.value;
     const num2 = interaction.options.get("second-number")?.value;
     interaction.reply(`the sum is ${Number(num1) + num2}`);
+  }
+  if (interaction.commandName === "embed") {
+    const embed = new EmbedBuilder()
+      .setTitle("Embed title")
+      .setDescription("This is an embed description")
+      .setColor("Random")
+      .addFields(
+        {
+          name: "first Field title",
+          value: "some random value",
+          inline: true,
+        },
+        {
+          name: "second Field title",
+          value: "some random value",
+          inline: true,
+        }
+      );
+
+    interaction.reply({ embeds: [embed] });
+  }
+});
+
+client.on("messageCreate", (message) => {
+  if (message.content === "embed") {
+    const embed = new EmbedBuilder()
+      .setTitle("Embed title")
+      .setDescription("This is an embed description")
+      .setColor("Random")
+      .addFields(
+        {
+          name: "first Field title",
+          value: "some random value",
+          inline: true,
+        },
+        {
+          name: "second Field title",
+          value: "some random value",
+          inline: true,
+        }
+      );
+    message.channel.send({ embeds: [embed] });
   }
 });
