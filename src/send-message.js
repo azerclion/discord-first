@@ -33,7 +33,7 @@ const roles = [
 
 client.on("ready", async (c) => {
   try {
-    const channel = await client.channels.cache.get("1079791181870940231");
+    const channel = await client.channels.cache.get("1079791182458138625");
     console.log(channel);
     if (!channel) return;
 
